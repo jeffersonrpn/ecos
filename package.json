@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "craw": "node src/crawler/run.js"
+    "craw": "node crawler/run.js"
   },
   "dependencies": {
     "next": "15.2.3",

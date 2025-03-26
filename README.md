@@ -13,7 +13,6 @@ Run the development server:
 ```bash
 yarn dev
 ```
-```
 
 Run the web crawler:
 
