@@ -2,10 +2,23 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Getting Started
 
-First, run the development server:
+First, install all dependencies:
+
+```bash
+yarn
+```
+
+Run the development server:
 
 ```bash
 yarn dev
+```
+```
+
+Run the web crawler:
+
+```bash
+yarn craw
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
