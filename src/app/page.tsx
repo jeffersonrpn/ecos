@@ -9,21 +9,21 @@ export default function Home() {
   // Converter CSV para array de objetos
   const lines = fileContent.split("\n").slice(1); // Ignorar cabeçalho
   const quotes = lines.map((line) => {
-    const [quote, author] = line
-      .split('","')
-      .map((text) => text.replace(/(^"|"$)/g, ""));
-    return { quote, author };
+    const obj = line.split(",");
+    return {
+      id: +obj[0],
+      index: +obj[1],
+      quote: obj[2].replace(/"/g, ""),
+      author: obj[3].replace(/"/g, ""),
+    };
   });
 
-  // Criar um índice baseado na data atual (YYYYMMDD)
   const todayIndex = parseInt(
     new Date().toISOString().slice(0, 10).replace(/-/g, ""),
     10
   );
 
-  // Garantir que o índice esteja dentro dos limites do array de frases
-  const quoteIndex = todayIndex % quotes.length;
-  const todayQuote = quotes[quoteIndex];
+  const todayQuote = quotes.find((quote) => quote.index === todayIndex);
 
   return (
     <main
@@ -36,9 +36,9 @@ export default function Home() {
       }}
     >
       <h1 style={{ textAlign: "center", maxWidth: "600px" }}>
-        {todayQuote.quote}
+        {todayQuote?.quote}
       </h1>
-      <p>- {todayQuote.author}</p>
+      <p>- {todayQuote?.author}</p>
     </main>
   );
 }
