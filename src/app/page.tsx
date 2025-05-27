@@ -1,5 +1,6 @@
 import fs from "fs";
 import path from "path";
+import React from "react";
 
 export default function Home() {
   // Caminho do arquivo CSV
@@ -9,21 +10,25 @@ export default function Home() {
   // Converter CSV para array de objetos
   const lines = fileContent.split("\n").slice(1); // Ignorar cabeçalho
   const quotes = lines.map((line) => {
-    const obj = line.split(",");
+    const obj = line.split(";");
     return {
       id: +obj[0],
-      index: +obj[1],
-      quote: obj[2].replace(/"/g, ""),
-      author: obj[3].replace(/"/g, ""),
+      quote: obj[1].replace(/"/g, ""),
+      author: obj[2].replace(/"/g, ""),
     };
   });
 
-  const todayIndex = parseInt(
-    new Date().toISOString().slice(0, 10).replace(/-/g, ""),
-    10
-  );
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = today.getMonth();
+  const day = today.getDate();
+  
+  // Create a deterministic but different rotation each month
+  const totalQuotes = quotes.length;
+  const yearMonthSeed = (year * 12 + month) % totalQuotes;
+  const rotationIndex = (yearMonthSeed + day - 1) % totalQuotes;
 
-  const todayQuote = quotes.find((quote) => quote.index === todayIndex);
+  const todayQuote = quotes[rotationIndex];
 
   return (
     <main
