@@ -1,6 +1,7 @@
 import fs from "fs";
 import path from "path";
 import React from "react";
+import { WobbleCard } from "../components/ui/wobble-card";
 
 export default function Home() {
   // Caminho do arquivo CSV
@@ -22,7 +23,7 @@ export default function Home() {
   const year = today.getFullYear();
   const month = today.getMonth();
   const day = today.getDate();
-  
+
   // Create a deterministic but different rotation each month
   const totalQuotes = quotes.length;
   const yearMonthSeed = (year * 12 + month) % totalQuotes;
@@ -31,19 +32,11 @@ export default function Home() {
   const todayQuote = quotes[rotationIndex];
 
   return (
-    <main
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        height: "100vh",
-      }}
-    >
-      <h1 style={{ textAlign: "center", maxWidth: "600px" }}>
-        {todayQuote?.quote}
-      </h1>
-      <p>- {todayQuote?.author}</p>
+    <main className="w-full h-screen p-2">
+      <WobbleCard>
+        <h1 className="heading-h1 text-white mb-4">{todayQuote.quote}</h1>
+        <h2 className="heading-h2 text-white">{todayQuote.author}</h2>
+      </WobbleCard>
     </main>
   );
 }
